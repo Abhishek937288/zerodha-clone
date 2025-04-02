@@ -1,10 +1,17 @@
-import React, { use, useState } from "react";
+import React, { useState, useContext } from "react";
 
-import { Tooltip, Grow, formControlClasses } from "@mui/material";
+import GeneralContext from "./GeneralContext";
 
-import { watchlist } from "../Data/data";
+import { Tooltip, Grow } from "@mui/material";
 
-import { BarChartOutlined, KeyboardArrowDown, KeyboardArrowUp, MoreHoriz } from "@mui/icons-material";
+import {
+  BarChartOutlined,
+  KeyboardArrowDown,
+  KeyboardArrowUp,
+  MoreHoriz,
+} from "@mui/icons-material";
+
+import { watchlist } from "../data/data";
 
 const WatchList = () => {
   return (
@@ -17,7 +24,7 @@ const WatchList = () => {
           placeholder="Search eg:infy, bse, nifty fut weekly, gold mcx"
           className="search"
         />
-        <span className="counts">{watchlist.length}/ 50</span>
+        <span className="counts"> {watchlist.length} / 50</span>
       </div>
 
       <ul className="list">
@@ -51,10 +58,9 @@ const WatchListItem = ({ stock }) => {
           {stock.isDown ? (
             <KeyboardArrowDown className="down" />
           ) : (
-            <KeyboardArrowUp className="up" />
+            <KeyboardArrowUp className="down" />
           )}
-
-          <span className="percent">{stock.percent}</span>
+          <span className="price">{stock.price}</span>
         </div>
       </div>
       {showWatchlistActions && <WatchListActions uid={stock.name} />}
@@ -63,6 +69,16 @@ const WatchListItem = ({ stock }) => {
 };
 
 const WatchListActions = ({ uid }) => {
+  const generalContext = useContext(GeneralContext);
+
+  const handleBuyClick = () => {
+    generalContext.openBuyWindow(uid);
+  };
+
+  const handleSellClick = () => {
+    generalContext.openSellWindow(uid);
+  };
+
   return (
     <span className="actions">
       <span>
@@ -71,6 +87,7 @@ const WatchListActions = ({ uid }) => {
           placement="top"
           arrow
           TransitionComponent={Grow}
+          onClick={handleBuyClick}
         >
           <button className="buy">Buy</button>
         </Tooltip>
@@ -79,6 +96,7 @@ const WatchListActions = ({ uid }) => {
           placement="top"
           arrow
           TransitionComponent={Grow}
+          onClick={handleSellClick}
         >
           <button className="sell">Sell</button>
         </Tooltip>
@@ -89,16 +107,12 @@ const WatchListActions = ({ uid }) => {
           TransitionComponent={Grow}
         >
           <button className="action">
-          <BarChartOutlined className="icon"/>
+            <BarChartOutlined className="icon" />
           </button>
         </Tooltip>
-        <Tooltip
-          title="More (M)"
-          placement="top"
-          arrow
-          TransitionComponent={Grow}
-        ><button className="action">
-          <MoreHoriz className="icon"/>
+        <Tooltip title="More" placement="top" arrow TransitionComponent={Grow}>
+          <button className="action">
+            <MoreHoriz className="icon" />
           </button>
         </Tooltip>
       </span>

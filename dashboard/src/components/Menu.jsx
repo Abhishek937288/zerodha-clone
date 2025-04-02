@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Menu = () => {
   const [selectedMenu, setSeletedMenu] = useState(0);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleMenuClick = (index) => {
     setSeletedMenu(index);
@@ -18,11 +19,15 @@ const Menu = () => {
 
   return (
     <div className="menu-container">
-      <img src="media\images\kite-logo.svg" style={{ width: "40px" }} />
+      <img
+        src="media\images\kite-logo.svg"
+        style={{ width: "40px" }}
+        alt="Logo"
+      />
       <div className="menus">
         <ul>
           <li>
-          <Link
+            <Link
               style={{ textDecoration: "none" }}
               to="/"
               onClick={() => handleMenuClick(0)}
@@ -44,7 +49,7 @@ const Menu = () => {
             </Link>
           </li>
           <li>
-          <Link
+            <Link
               style={{ textDecoration: "none" }}
               to="/holdings"
               onClick={() => handleMenuClick(2)}
@@ -55,7 +60,7 @@ const Menu = () => {
             </Link>
           </li>
           <li>
-          <Link
+            <Link
               style={{ textDecoration: "none" }}
               to="/positions"
               onClick={() => handleMenuClick(3)}
@@ -66,7 +71,7 @@ const Menu = () => {
             </Link>
           </li>
           <li>
-          <Link
+            <Link
               style={{ textDecoration: "none" }}
               to="/funds"
               onClick={() => handleMenuClick(4)}
@@ -77,7 +82,7 @@ const Menu = () => {
             </Link>
           </li>
           <li>
-          <Link
+            <Link
               style={{ textDecoration: "none" }}
               to="/apps"
               onClick={() => handleMenuClick(5)}
@@ -93,7 +98,14 @@ const Menu = () => {
           <div className="avatar">ZU</div>
           <p className="username">USERID</p>
         </div>
-      
+
+        {isProfileDropdownOpen && (
+          <div className="profile-dropdown">
+            <button onClick={() => navigate("/login")}>Login</button>
+
+            <button onClick={() => navigate("/signup")}>Signup</button>
+          </div>
+        )}
       </div>
     </div>
   );

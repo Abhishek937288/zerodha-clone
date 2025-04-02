@@ -9,7 +9,8 @@ import Orders from "./Orders.jsx";
 import Positions from "./Positions";
 import Summary from "./Summary";
 import WatchList from "./WatchList";
-import GeneralContextProvider from "../context/GeneralContext.jsx";
+import { GeneralContextProvider } from "./GeneralContext.jsx"; 
+
 
 const Dashboard = () => {
   return (
