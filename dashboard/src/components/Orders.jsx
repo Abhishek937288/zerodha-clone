@@ -6,9 +6,8 @@ const Orders = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3002/Orders")
+      .get("http://localhost:3002/orders/Orders")
       .then((res) => {
-        console.log(res.data);
         setOrders(res.data);
       })
       .catch((err) => console.error("API Error:", err)); 

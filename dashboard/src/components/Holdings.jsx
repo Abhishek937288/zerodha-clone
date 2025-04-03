@@ -6,9 +6,8 @@ const Holdings = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3002/allHoldings")
+      .get("http://localhost:3002/holdings/allHoldings")
       .then((res) => {
-        console.log(res.data);
         setAllHoldings(res.data);
       })
       .catch((err) => console.error("API Error:", err)); 
