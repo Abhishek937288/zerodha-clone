@@ -33,7 +33,7 @@ app.use("/holdings", holdingsRoute);
 app.use("/positions", positionsRoute);
 app.use("/orders", ordersRoute);
 
-app.use("/", authRoute);
+
 app.listen(PORT, () => {
   console.log("App started!");
   mongoose.connect(uri);

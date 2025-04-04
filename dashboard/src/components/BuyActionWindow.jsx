@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import axios from "./axiosConfig";
 
 import GeneralContext from "./GeneralContext";
 import "./BuyActionWindow.css";
@@ -9,15 +9,26 @@ const BuyActionWindow = ({ uid }) => {
   const [stockQuantity, setStockQuantity] = useState(1);
   const [stockPrice, setStockPrice] = useState(0.0);
 
-  const handleBuyClick = () => {
-    axios.post("http://localhost:3002/newOrder", {
-      name: uid,
-      qty: stockQuantity,
-      price: stockPrice,
-      mode: "buy",
-    });
-
-    GeneralContext.closeBuyWindow();
+  const handleBuyClick = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.post("http://localhost:3002/orders", {
+        name: uid,
+        qty: stockQuantity,
+        price: stockPrice,
+        mode: "buy",
+      },{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      alert(response.data.message || "Order placed successfully");
+      GeneralContext.closeBuyWindow();
+    } catch (err) {
+      alert("Order failed");
+      console.error(err);
+    }
   };
 
   const handleCancelClick = () => {

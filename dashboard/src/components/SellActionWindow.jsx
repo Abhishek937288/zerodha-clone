@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+
+import axios from "./axiosConfig";
 
 import GeneralContext from "./GeneralContext";
 

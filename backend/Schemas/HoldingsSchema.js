@@ -8,7 +8,12 @@ const HoldingsSchema = new Schema({
   net: String,
   day: String,
   prevClose: { type: Number, default: 100 },
-  isLoss: { type: Boolean, default: false }
+  isLoss: { type: Boolean, default: false },
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true
+  }
 });
 
-module.exports = {HoldingsSchema};
+module.exports = { HoldingsSchema };

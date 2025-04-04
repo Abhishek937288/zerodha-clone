@@ -3,7 +3,7 @@ const { HoldingsModel } = require("../model/HoldingsModel");
 
 exports.getAllOrders = async (req, res) => {
   try {
-    let Orders = await OrdersModel.find({});
+    let Orders = await OrdersModel.find({userId: req.user.id});
     res.json(Orders);
   } catch (error) {
     res.status(500).json({ message: "Server error", error });
@@ -14,10 +14,10 @@ exports.newOrder = async (req, res) => {
   try {
     const { name, qty, price, mode } = req.body;
 
-    let newOrder = new OrdersModel({ name, qty, price, mode });
+    let newOrder = new OrdersModel({ name, qty, price, mode, userId: req.user.id });
     await newOrder.save();
 
-    let holding = await HoldingsModel.findOne({ name });
+    let holding = await HoldingsModel.findOne({ name, userId: req.user.id });
 
     if (mode === "buy") {
       if (holding) {
@@ -33,6 +33,7 @@ exports.newOrder = async (req, res) => {
           price,
           net: "0",
           day: "0",
+          userId: req.user.id  
         });
       }
       await holding.save();
@@ -54,7 +55,7 @@ exports.newOrder = async (req, res) => {
       holding.qty -= qty;
 
       if (holding.qty === 0) {
-        await HoldingsModel.deleteOne({ name });
+        await HoldingsModel.deleteOne({ name, userId: req.user.id });
         return res.json({ message: "Stock sold and removed from holdings." });
       }
 
