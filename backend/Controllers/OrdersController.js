@@ -1,5 +1,5 @@
-const { OrdersModel } = require("../model/OrdersModel");
-const { HoldingsModel } = require("../model/HoldingsModel");
+const OrdersModel = require("../model/OrdersModel");
+const HoldingsModel = require("../model/HoldingsModel");
 
 exports.getAllOrders = async (req, res) => {
   try {

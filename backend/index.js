@@ -7,6 +7,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const authRoute = require("./Routes/AuthRoute");
 
+
 const holdingsRoute = require("./Routes/HoldingsRoute");
 const positionsRoute = require("./Routes/PositionsRoute");
 const ordersRoute = require("./Routes/OrdersRoute");
@@ -38,4 +39,4 @@ app.listen(PORT, () => {
   console.log("App started!");
   mongoose.connect(uri);
   console.log("DB started!");
-});
+}); 

@@ -6,11 +6,13 @@ const Holdings = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3002/holdings/allHoldings")
+      .get("http://localhost:3002/holdings", {
+        withCredentials: true, 
+      })
       .then((res) => {
         setAllHoldings(res.data);
       })
-      .catch((err) => console.error("API Error:", err)); 
+      .catch((err) => console.error("API Error:", err));
   }, []);
 
   return (

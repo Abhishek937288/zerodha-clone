@@ -2,28 +2,29 @@ const User = require("../model/UserModel");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 
-
-module.exports.userVerification = (req, res) => {
+module.exports.userVerification = async (req, res, next) => {
   const token = req.cookies.token;
-
   if (!token) {
-    return res.status(401).json({ status: false, message: "No token provided" });
+    console.log("No token provided");
+    return res
+      .status(401)
+      .json({ status: false, message: "No token provided" });
   }
+  try {
+    const decoded = jwt.verify(token, process.env.TOKEN_KEY);
+    const user = await User.findById(decoded.id);
 
-  jwt.verify(token, process.env.TOKEN_KEY, async (err, data) => {
-    if (err) {
-      return res.status(401).json({ status: false, message: "Token is invalid or expired" });
+    if (user) {
+      req.user = { id: user._id, username: user.username };
+      next();
+    } else {
+      console.log("User not found for ID:", decoded.id);
+      return res.status(404).json({ status: false, message: "User not found" });
     }
-
-    try {
-      const user = await User.findById(data.id);
-      if (user) {
-        return res.json({ status: true, user: user.username });
-      } else {
-        return res.status(404).json({ status: false, message: "User not found" });
-      }
-    } catch (err) {
-      return res.status(500).json({ status: false, message: "Server error", error: err });
-    }
-  });
+  } catch (err) {
+    console.error("Token verification error:", err); 
+    return res
+      .status(401)
+      .json({ status: false, message: "Token is invalid or expired" });
+  }
 };

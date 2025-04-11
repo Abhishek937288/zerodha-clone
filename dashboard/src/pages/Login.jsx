@@ -1,7 +1,9 @@
+
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; 
 
 const Login = () => {
   const navigate = useNavigate();
@@ -20,11 +22,11 @@ const Login = () => {
 
   const handleError = (err) =>
     toast.error(err, {
-      position: "bottom-left",
+      position: "top-center",
     });
   const handleSuccess = (msg) =>
     toast.success(msg, {
-      position: "bottom-left",
+      position: "top-center",
     });
 
   const handleSubmit = async (e) => {
@@ -37,7 +39,6 @@ const Login = () => {
         },
         { withCredentials: true }
       );
-      console.log(data);
       const { success, message } = data;
       if (success) {
         handleSuccess(message);
@@ -51,13 +52,14 @@ const Login = () => {
       console.log(error);
     }
     setInputValue({
+      ...inputValue,
       email: "",
       password: "",
     });
   };
 
   return (
-    <div className="login-form-container"> 
+    <div className="login-form-container">
       <h2>Login Account</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -82,7 +84,7 @@ const Login = () => {
         </div>
         <button type="submit">Submit</button>
         <span>
-          Already have an account? <Link to={"/signup"}>Signup</Link>
+          Don't have an account? <Link to={"/signup"}>Signup</Link>
         </span>
       </form>
       <ToastContainer />

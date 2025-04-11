@@ -5,9 +5,11 @@ const Positions = () => {
   const [allpositions, setAllPositions] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3002/positions/allPositions").then((res) => {
-      setAllPositions(res.data);
-    });
+    axios.get("http://localhost:3002/positions/",{
+      withCredentials: true, 
+    }).then((res) => {
+       setAllPositions(res.data);
+    }).catch((err) => console.error("API Error:", err));
   }, []);
 
   return (

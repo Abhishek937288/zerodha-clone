@@ -1,35 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react"; 
 import { Link } from "react-router-dom";
-
 import axios from "./axiosConfig";
-
-import GeneralContext from "./GeneralContext";
-
+import GeneralContext from "./GeneralContext"; 
 import "./SellActionWindow.css";
+import { toast } from "react-toastify";
+
 
 const SellActionWindow = ({ uid }) => {
   const [stockQuantity, setStockQuantity] = useState(1);
   const [stockPrice, setStockPrice] = useState(0.0);
+  const { closeSellWindow } = useContext(GeneralContext); 
 
   const handleSellClick = async () => {
     try {
-      const response = await axios.post("http://localhost:3002/newOrder", {
+      const response = await axios.post("http://localhost:3002/orders", {
         name: uid,
         qty: stockQuantity,
         price: stockPrice,
         mode: "sell",
       });
   
-      alert(response.data.message);
-      GeneralContext.closeSellWindow();
+      toast.success(response.data.message || "Sell order placed");
+      closeSellWindow(); 
     } catch (error) {
-      alert(error.response?.data?.message || "Please place new order");
+      toast.error(error?.response?.data?.message || "Please place a new order");
     }
   };
   
 
   const handleCancelClick = () => {
-    GeneralContext.closeSellWindow();
+    closeSellWindow(); 
   };
 
   return (

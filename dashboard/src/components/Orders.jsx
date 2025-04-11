@@ -6,8 +6,8 @@ const Orders = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3002/orders/Orders")
-      .then((res) => {
+      .get("http://localhost:3002/orders")
+      .then((res) => { 
         setOrders(res.data);
       })
       .catch((err) => console.error("API Error:", err)); 
@@ -29,18 +29,18 @@ const Orders = () => {
             </tr>
           </thead>
           <tbody>
-            {orders.map((stock,index) => {
-              return (
-                <tr key={index}>
-                  <td>{stock.name}</td>
-                  <td>{stock.qty}</td>
-                  <td>{stock.price}</td>
-                  <td>{stock.mode}</td>
-                  <td>{stock.time}</td>
-                </tr>
-              );
-            })}
-          </tbody>
+    {orders.map((stock,index) => {
+        return (
+            <tr key={index}>
+                <td>{stock.name}</td>
+                <td>{stock.qty}</td>
+                <td>{stock.price}</td>
+                <td>{stock.mode}</td>
+                <td>{stock.time}</td>
+            </tr>
+        );
+    })}
+</tbody>
         </table>
       </div>
     </>

@@ -1,7 +1,4 @@
 const { model } = require("mongoose");
+const OrdersSchema = require("../Schemas/OdersSchema");
 
-const { OrdersSchema } = require("../Schemas/OdersSchema");
-
-const OrdersModel = new model("order", OrdersSchema);
-
-module.exports = { OrdersModel };
+module.exports = model("order", OrdersSchema);

@@ -18,9 +18,9 @@ module.exports.Signup = async (req, res, next) => {
         return res
             .status(201)
             .json({ message: "User signed in successfully", success: true, user });
+            next();
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: "Server error", error: error.message }); // Send error response
     }
 };
 
@@ -44,6 +44,7 @@ module.exports.Login = async (req, res, next) => {
             httpOnly: false,
         });
         return res.status(201).json({ message: "User logged in successfully", success: true });
+        next()
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: "Server error", error: error.message }); 

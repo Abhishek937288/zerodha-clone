@@ -1,6 +1,4 @@
-const mongoose = require("mongoose");
-const { HoldingsSchema } = require("../schemas/HoldingsSchema"); 
+const { model } = require("mongoose");
+const  HoldingsSchema  = require("../Schemas/HoldingsSchema");
 
-const HoldingsModel = mongoose.model("Holdings", HoldingsSchema);
-
-module.exports = { HoldingsModel };
+module.exports = model("holding", HoldingsSchema);
