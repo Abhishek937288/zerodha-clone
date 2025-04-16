@@ -981,3 +981,39 @@ hr {
 .profile-dropdown button:hover {
   background-color: #e0e0e0;
 }
+
+.empty-holdings-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+  color: #777;
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.empty-holdings-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.empty-holdings-image {
+  max-width: 400px;
+  margin-bottom: 20px;
+}
+
+.empty-holdings-message {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.empty-holdings-suggestion {
+  font-size: 1em;
+  margin-bottom: 20px;
+}
+

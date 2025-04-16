@@ -5,8 +5,7 @@ const Positions = () => {
   const [allpositions, setAllPositions] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3002/positions/",{
-      withCredentials: true, 
+    axios.get("http://localhost:3002/positions/",{ 
     }).then((res) => {
        setAllPositions(res.data);
     }).catch((err) => console.error("API Error:", err));
