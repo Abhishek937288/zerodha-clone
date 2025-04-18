@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { VerticalGraph } from "./VerticalGraph";
 import EmptyPortfolioImage from "../assets/EmptyPortfolioImage.svg";
+
 const Holdings = () => {
   const [allholdings, setAllHoldings] = useState([]);
   const [graphData, setGraphData] = useState(null);
@@ -27,73 +28,91 @@ const Holdings = () => {
             ],
           };
           setGraphData(dataForGraph);
+        } else {
+          setGraphData(null); 
         }
       })
       .catch((err) => console.error("API Error:", err));
   }, []);
 
+  const totalInvestment = allholdings.reduce(
+    (sum, stock) => sum + stock.avg * stock.qty,
+    0
+  );
+
+  const currentValue = allholdings.reduce(
+    (sum, stock) => sum + stock.price * stock.qty,
+    0
+  );
+
+  const profitLoss = currentValue - totalInvestment;
+  const profitLossPercentage =
+    totalInvestment !== 0 ? (profitLoss / totalInvestment) * 100 : 0;
+  const isProfit = profitLoss >= 0;
+
   if (allholdings.length > 0) {
     return (
       <>
-      <h3 className="title">Holdings ({allholdings.length})</h3>
-      <div className="order-table">
-        <table>
-          <thead>
-            <tr>
-              <th>Instrument</th>
-              <th>Qty.</th>
-              <th>Avg. cost</th>
-              <th>LTP</th>
-              <th>Cur. val</th>
-              <th>P&L</th>
-              <th>Net chg.</th>
-              <th>Day chg.</th>
-            </tr>
-          </thead>
-          <tbody>
-            {allholdings.map((stock, index) => {
-              const curValue = stock.price * stock.qty;
-              const isProfit = curValue - stock.avg * stock.qty >= 0;
-              const profitClass = isProfit ? "profit" : "loss";
-              const dayClass = stock.isLoss ? "loss" : "profit";
-              return (
-                <tr key={index}>
-                  <td>{stock.name}</td>
-                  <td>{stock.qty}</td>
-                  <td>{stock.avg.toFixed(2)}</td>
-                  <td>{stock.price.toFixed(2)}</td>
-                  <td>{curValue.toFixed(2)}</td>
-                  <td className={profitClass}>
-                    {(curValue - stock.avg * stock.qty).toFixed(2)}
-                  </td>
-                  <td className={profitClass}>{stock.net}</td>
-                  <td className={dayClass}>{stock.day}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-      <div className="row">
-        <div className="col">
-          <h5>
-            29,875.<span>55</span>
-          </h5>
-          <p>Total investment</p>
+        <h3 className="title">Holdings ({allholdings.length})</h3>
+        <div className="order-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Instrument</th>
+                <th>Qty.</th>
+                <th>Avg. cost</th>
+                <th>LTP</th>
+                <th>Cur. val</th>
+                <th>P&L</th>
+                <th>Net chg.</th>
+                <th>Day chg.</th>
+              </tr>
+            </thead>
+            <tbody>
+              {allholdings.map((stock, index) => {
+                const curValue = stock.price * stock.qty;
+                const stockProfitLoss = curValue - stock.avg * stock.qty;
+                const profitClass = stockProfitLoss >= 0 ? "profit" : "loss";
+                const dayClass = stock.isLoss ? "loss" : "profit";
+                return (
+                  <tr key={index}>
+                    <td>{stock.name}</td>
+                    <td>{stock.qty}</td>
+                    <td>{stock.avg.toFixed(2)}</td>
+                    <td>{stock.price.toFixed(2)}</td>
+                    <td>{curValue.toFixed(2)}</td>
+                    <td className={profitClass}>{stockProfitLoss.toFixed(2)}</td>
+                    <td className={profitClass}>{stock.net}</td>
+                    <td className={dayClass}>{stock.day}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
-        <div className="col">
-          <h5>
-            31,428.<span>95</span>
-          </h5>
-          <p>Current value</p>
+
+        <div className="row">
+          <div className="col">
+            <h5>
+              {totalInvestment.toFixed(2)}
+            </h5>
+            <p>Total investment</p>
+          </div>
+          <div className="col">
+            <h5>
+              {currentValue.toFixed(2)}
+            </h5>
+            <p>Current value</p>
+          </div>
+          <div className="col">
+            <h5 className={isProfit ? "profit" : "loss"}>
+              {profitLoss.toFixed(2)} ({profitLossPercentage.toFixed(2)}%)
+            </h5>
+            <p>P&L</p>
+          </div>
         </div>
-        <div className="col">
-          <h5>1,553.40 (+5.20%)</h5>
-          <p>P&L</p>
-        </div>
-      </div>
-      {graphData && <VerticalGraph data={graphData} />}
-    </>
+        {graphData && <VerticalGraph data={graphData} />}
+      </>
     );
   } else {
     return (
