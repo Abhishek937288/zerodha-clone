@@ -1,11 +1,10 @@
-const  HoldingsModel  = require("../model/HoldingsModel");
+const Holding = require('../model/HoldingsModel');
 
 exports.getAllHoldings = async (req, res) => {
   try {
-    let holdings = await HoldingsModel.find({userId: req.user.id});
-    res.json(holdings);
+    const holdings = await Holding.find({ userId: req.user.id });
+    res.status(200).json(holdings);
   } catch (error) {
-    console.error("Error in getAllHoldings:", error); 
-    res.status(500).json({ message: "Server error", error });
+    res.status(500).json({message : error.message})
   }
 };

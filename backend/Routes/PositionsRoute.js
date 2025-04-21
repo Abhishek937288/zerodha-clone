@@ -1,15 +1,12 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const Position = require('../model/PositionsModel');
+const authMiddleware = require("../Middlewares/AuthMiddleware");
+const PositionsController = require("../Controllers/PositionsController");
 
-router.get('/', async (req, res) => { 
-    try {
-        const positions = await Position.find(); 
-        res.status(200).json(positions);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    
-    }
-});
+router.get(
+  "/",
+  authMiddleware.userVerification,
+  PositionsController.getAllPositions
+);
 
 module.exports = router;

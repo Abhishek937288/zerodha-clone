@@ -2,7 +2,7 @@ import React from "react";
 
 function Hero() {
   return (
-    <div className="p-4 mb-4 mt-6">
+    <div className="p-4 pt-20 mb-4 mt-6">
       <div className="text-center">
         <img
           src="images/homeHero.png"

@@ -3,10 +3,11 @@ const HoldingsModel = require("../model/HoldingsModel");
 
 exports.getAllOrders = async (req, res) => {
   try {
-    let Orders = await OrdersModel.find({userId: req.user.id});
-    res.json(Orders);
+    const orders = await OrdersModel.find({ userId: req.user.id }).sort({ orderTime: -1 });
+     res.status(200).json(orders);
   } catch (error) {
-    res.status(500).json({ message: "Server error", error });
+    // console.error("Error fetching orders:", error);
+        res.status(500).json({ message: error.message });
   }
 };
 

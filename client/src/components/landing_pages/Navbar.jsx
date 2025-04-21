@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function Navbar() {
-  const dashboardUrl = import.meta.env.VITE_DASHBOARD_URL;
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -29,7 +28,7 @@ function Navbar() {
   }, [isOpen]);
 
   return (
-    <nav className="border-b border-gray-200 bg-white">
+    <nav className="border-b top-0 left-0 right-0 border-gray-200 bg-white fixed">
       <div className="max-w-[1100px] flex justify-between mx-auto my-6">
         <Link to={"/"}>
           <img src="images\logo.svg" className="w-32" alt="Logo" />
@@ -47,7 +46,7 @@ function Navbar() {
 
         <ul className="flex gap-8 items-center ">
           <li className="text-gray-700 hover:text-gray-900">
-            <Link aria-current="page" to={dashboardUrl}>
+            <Link aria-current="page" to={"/signup"}>
               Signup
             </Link>
           </li>
