@@ -2,12 +2,12 @@ import React from 'react';
 
 function Education () {
   return (
-    <div className=" mt-10 mb-10 mx-auto px-4 sm:px-6 lg:px-8 ">
+    <div className="flex  mt-10 mb-10 mx-auto px-4 sm:px-6 lg:px-8   ">
       <div className="flex flex-wrap  ">
         <div className="w-full md:w-1/2">
-          <img src="images\education.svg" alt="" className="w-4/5 mx-auto block"/>
+          <img src="images\education.svg" alt="" className="w-3.5/4 px-5 ml-5 mx-auto block"/>
         </div>
-        <div className="w-full md:w-1/2">
+        <div className="w-full md:w-1/2 py-15 px-5">
           <div className="text-center">
             <h1 className="text-3xl font-semibold mb-4">Free and open market education</h1>
             <p className="mb-4 text-gray-700">
