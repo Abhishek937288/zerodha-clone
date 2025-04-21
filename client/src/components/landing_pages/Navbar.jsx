@@ -89,7 +89,7 @@ function Navbar() {
                 className="absolute flex-row flex gap-[30px] shadow-2xl bg-white z-100 items-start p-5 rounded-[10px] top-[60px] right-[10px] border-[#ccc] w-[500px] h-[250px]"
               >
                 {" "}
-                <Link to={dashboardUrl} className="flex items-center justify-center flex-col">
+                <Link to={""} className="flex items-center justify-center flex-col">
                   <img src="images/kite-logo.svg" className="h-[50px] w-[50px]" alt="" />
                   <p className="text-center">Kite</p>
                   <p className="text-sm text-gray-800">Trading platform</p>
