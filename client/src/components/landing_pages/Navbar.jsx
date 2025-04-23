@@ -54,7 +54,7 @@ function Navbar() {
             <Link to={"about"}>About</Link>
           </li>
           <li className="text-gray-700 hover:text-gray-900">
-            <Link to={"product"}>Product</Link>
+            <Link to={"products"}>Product</Link>
           </li>
           <li className="text-gray-700 hover:text-gray-900">
             <Link to={"pricing"}>Pricing</Link>

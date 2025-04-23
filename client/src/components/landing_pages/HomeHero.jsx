@@ -1,6 +1,6 @@
 import React from "react";
 
-function Hero() {
+function HomeHero() {
   return (
     <div className="p-4 pt-20 mb-4 mt-6">
       <div className="text-center">
@@ -25,4 +25,4 @@ function Hero() {
   );
 }
 
-export default Hero;
+export default HomeHero;
