@@ -3,7 +3,7 @@ import React from "react";
 function Footer() {
   return (
     <footer className="bg-gray-100">
-      <div className="container mt-10 mx-auto  sm:px-6 lg:px-8 py-8 ">
+      <div className="mt-10 mx-auto sm:px-6 lg:px-8 py-8 ">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1">
             <img src="images/logo.svg" className="w-1/2" alt="Zerodha Logo" />

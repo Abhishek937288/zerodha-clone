@@ -10,7 +10,7 @@ import {
   MoreHoriz,
 } from "@mui/icons-material";
 
-import { watchlist } from "../data/data"; 
+import { watchlist } from "../../data/data"; 
 
 const labels = watchlist.map((subArray) => subArray["name"]); 
 
