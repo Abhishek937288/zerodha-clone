@@ -30,7 +30,7 @@ function Navbar() {
   return (
     <nav className="border-b top-0 left-0 right-0 border-gray-200 bg-white fixed">
       <div className="max-w-[1100px] flex justify-between mx-auto my-6">
-        <Link to={"/"}>
+        <Link to={""}>
           <img src="images\logo.svg" className="w-32" alt="Logo" />
         </Link>
         <button
@@ -89,7 +89,7 @@ function Navbar() {
                 className="absolute flex-row flex gap-[30px] shadow-2xl bg-white z-100 items-start p-5 rounded-[10px] top-[60px] right-[10px] border-[#ccc] w-[500px] h-[250px]"
               >
                 {" "}
-                <Link to={""} className="flex items-center justify-center flex-col">
+                <Link to={"/dashboard"} className="flex items-center justify-center flex-col">
                   <img src="images/kite-logo.svg" className="h-[50px] w-[50px]" alt="" />
                   <p className="text-center">Kite</p>
                   <p className="text-sm text-gray-800">Trading platform</p>

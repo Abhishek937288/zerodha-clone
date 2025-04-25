@@ -1,30 +1,43 @@
-import React from 'react'
+import React from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+
 import Navbar from './components/landing_pages/Navbar';
 import Footer from './components/landing_pages/Footer';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import { Home } from './pages/Home';
 import { Pricing } from './pages/Pricing';
 import Signup from './pages/Signup';
 import About from './pages/About';
 import Products from './pages/Products';
 import Support from './pages/Support';
+import { Dashboard } from './pages/Dashboard';
 
+const Layout = () => {
+  const location = useLocation();
 
- const App = () => {
+  const hideHeaderFooter = location.pathname === '/dashboard';
+
   return (
-    <BrowserRouter>
-    <Navbar/>
-    <Routes>
-    <Route path="/" element={<Home/>} />
-    <Route path="/pricing" element={<Pricing/>} />
-    <Route path='/signup' element={<Signup/>}/>
-    <Route path='/about' element={<About/>}/>
-    <Route path='/products' element={<Products/>}/>
-    <Route path='/Support' element={<Support/>}/>
-    </Routes>
-    <Footer/>
-    </BrowserRouter>
-  )
-}
+    <>
+      {!hideHeaderFooter && <Navbar />}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/support" element={<Support />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+      {!hideHeaderFooter && <Footer />}
+    </>
+  );
+};
 
-export default App ;
+const App = () => (
+  <BrowserRouter>
+    <Layout />
+  </BrowserRouter>
+);
+
+export default App;
