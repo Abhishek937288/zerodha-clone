@@ -1,31 +1,35 @@
 import React, { useState, useEffect } from "react";
-import axios from "./axiosConfig";
-
+import axios from "./../../utils/axiosConfig.js"
 const Positions = () => {
   const [allpositions, setAllPositions] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3002/positions/",{ 
+    axios.get(import.meta.env.VITE_BACKEND_URI +"/api/v1/positions",{ 
     }).then((res) => {
        setAllPositions(res.data);
     }).catch((err) => console.error("API Error:", err));
   }, []);
-
+  const tableTitles = [
+    "Product",
+    "Instrument",
+    "Qty.",
+    "Avg.",
+    "LTP",
+    "P&L",
+    "Chg.",
+  ];
   return (
     <>
-      <h3 className="title">Positions ({allpositions.length})</h3>
+      <h3 className="text-2xl text-gray-600 py-10 font-normal">Positions ({allpositions.length})</h3>
 
-      <div className="order-table">
-        <table>
-          <thead>
-            <tr>
-              <th>Product</th>
-              <th>Instrument</th>
-              <th>Qty.</th>
-              <th>Avg.</th>
-              <th>LTP</th>
-              <th>P&L</th>
-              <th>Chg.</th>
+      <div className="">
+        <table className="w-full font-normal" >
+          <thead > 
+            <tr className="border-t border-b py-4 font-bold border-gray-400/70">
+            
+              {
+                tableTitles.map(title =>  <th className="py-3 font-bold" key={title}>{title}</th> )
+              }
             </tr>
           </thead>
           <tbody>
@@ -35,8 +39,8 @@ const Positions = () => {
               const profClass = isProfit ? "profit" : "loss";
               const dayClass = stock.isLoss ? "loss" : "profit";
               return (
-                <tr key={index}>
-                  <td>{stock.product}</td>
+                <tr key={index} className="border-b border-gray-400/50 text-center">
+                  <td className="py-3">{stock.product}</td>
                   <td>{stock.name}</td>
                   <td>{stock.qty}</td>
                   <td>{stock.avg.toFixed(2)}</td>

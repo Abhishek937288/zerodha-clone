@@ -14,7 +14,7 @@ exports.getAllOrders = async (req, res) => {
 exports.newOrder = async (req, res) => {
   try {
     const { name, qty, price, mode } = req.body;
-
+    
     let newOrder = new OrdersModel({ name, qty, price, mode, userId: req.user.id });
     await newOrder.save();
 

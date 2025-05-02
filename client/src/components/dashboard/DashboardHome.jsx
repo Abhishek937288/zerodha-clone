@@ -8,7 +8,6 @@ import Holdings from "../dashboard/Holdings.jsx";
 import Orders from "../dashboard/Orders.jsx";
 import Positions from "../dashboard/Position.jsx";
 import Summary from "../dashboard/Summary.jsx";
-import WatchList from "../dashboard/WatchList.jsx";
 import { GeneralContextProvider } from "../dashboard/GeneralContext"; 
 
 
@@ -16,7 +15,7 @@ const Dashboard = () => {
   return (
     <div className="dashboard-container">
       <GeneralContextProvider>
-        <WatchList />
+        
       </GeneralContextProvider>
       <div className="content">
         <Routes>

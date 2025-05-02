@@ -10,7 +10,7 @@ function LeftSection({
   appStore,
 }) {
   return (
-    <div className="container mx-25 mt-5 mb-5 px-4 sm:px-6 lg:px-8 ">
+    <div className=" mx-25 mt-5 mb-5 px-4 sm:px-6 lg:px-8 ">
       <div className="flex flex-wrap">
         <div className="w-full md:w-5/12 pb-5">
           <img src={imageURL} alt={productName} className="w-full" />

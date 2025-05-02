@@ -2,7 +2,7 @@ import React from "react";
 
 function RaiseTicket() {
   return (
-    <div className="container mx-20 py-16 px-3 sm:px-8 lg:px-10">
+    <div className=" mx-20 py-16 px-3 sm:px-8 lg:px-10">
       <h1 className="text-3xl font-semibold text-left pb-10">
         To create a ticket, select a relevant topic
       </h1>

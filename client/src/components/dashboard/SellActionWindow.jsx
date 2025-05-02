@@ -1,60 +1,77 @@
-import React, { useState, useContext } from "react"; 
-import { Link } from "react-router-dom";
-import axios from "./axiosConfig";
-import GeneralContext from "./GeneralContext"; 
-import "./SellActionWindow.css";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
+import {useBuySellStore} from "../../hooks/useBuySell"
 
-
-const SellActionWindow = ({ uid }) => {
-  const [stockQuantity, setStockQuantity] = useState(1);
-  const [stockPrice, setStockPrice] = useState(0.0);
-  const { closeSellWindow } = useContext(GeneralContext); 
-
-  const handleSellClick = async () => {
-    try {
-      const response = await axios.post("http://localhost:3002/orders", {
-        name: uid,
-        qty: stockQuantity,
-        price: stockPrice,
-        mode: "sell",
-      });
-  
-      toast.success(response.data.message || "Sell order placed");
-      closeSellWindow(); 
-    } catch (error) {
-      toast.error(error?.response?.data?.message || "Please place a new order");
-    }
-  };
-  
+const BuyActionWindow = ({ uid }) => {
+  const [sellData, setSellData] = useState({stockPrice: 0.0 , stockQuantity: 0});
+  const {closeSell} = useBuySellStore();
+  const [isloading,setIsLoading]=useState(false);
 
   const handleCancelClick = () => {
-    closeSellWindow(); 
+    closeSell();
   };
 
+  const handleChange = (e) => {
+    const {name,value} = e.target;
+    setSellData((prev)=> {
+      return {...prev,[name]:value}
+    })
+  }
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      try {
+        setIsLoading(true);
+      
+        const res = await fetch(
+          import.meta.env.VITE_BACKEND_URI +"/api/v1/orders",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: 'include',
+            body: JSON.stringify({
+              name: uid,
+              qty: sellData.stockQuantity,
+              price: sellData.stockPrice,
+              mode: "sell",
+            }),
+          }
+      
+        );
+        const result = await res.json();
+        toast.success("Sell placed successfully");
+        closeSell();
+      }catch (err) {
+        toast.error("Order failed");
+        console.error(err);
+      } finally{setIsLoading(false)}
+    }
   return (
-    <div className="container" id="buy-window" draggable="true">
+    <form onSubmit={handleSubmit} className="container absolute" id="buy-window" draggable="true">
       <div className="regular-order">
         <div className="inputs">
           <fieldset>
             <legend>Qty.</legend>
             <input
               type="number"
-              name="qty"
+              min="1"
+              name="stockQuantity"
               id="qty"
-              onChange={(e) => setStockQuantity(e.target.value)}
-              value={stockQuantity}
+              onChange={handleChange}
+              value={sellData.stockQuantity}
             />
           </fieldset>
           <fieldset>
             <legend>Price</legend>
             <input
               type="number"
-              name="price"
+              name="stockPrice"
               id="price"
               step="0.05"
-              onChange={(e) => setStockPrice(e.target.value)}
-              value={stockPrice}
+              onChange={handleChange}
+              value={sellData.stockPrice}
             />
           </fieldset>
         </div>
@@ -63,16 +80,18 @@ const SellActionWindow = ({ uid }) => {
       <div className="buttons">
         <span>Margin required ₹140.65</span>
         <div>
-          <Link className="btn btn-blue" onClick={handleSellClick}>
-            Sell
-          </Link>
-          <Link to="" className="btn btn-grey" onClick={handleCancelClick}>
+  
+          <button type="submit" className="btn btn-blue" disabled={isloading}>
+            {isloading ? "Loading..": "Sell"}
+          </button>
+          <button type="button"  onClick={handleCancelClick} className="btn btn-grey">
             Cancel
-          </Link>
+          </button>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 
-export default SellActionWindow;
+
+export default BuyActionWindow;

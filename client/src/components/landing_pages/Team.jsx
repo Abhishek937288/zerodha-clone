@@ -2,7 +2,7 @@ import React from "react";
 
 function Team() {
   return (
-    <div className="container mx-auto">
+    <div className=" mx-auto">
       <div className="py-5 mt-2 border-t  border-gray-200">
         <h1 className="text-center mb-2 text-2xl font-semibold text-gray-800">People</h1>
       </div>

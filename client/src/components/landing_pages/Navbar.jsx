@@ -1,14 +1,14 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
+import {useAuth} from "../../hooks/useAuthStore";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
-
   const toggleDropDown = () => {
     setIsOpen((prev) => !prev);
   };
-
+const {user } = useAuth()
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -46,9 +46,12 @@ function Navbar() {
 
         <ul className="flex gap-8 items-center ">
           <li className="text-gray-700 hover:text-gray-900">
-            <Link aria-current="page" to={"/signup"}>
-              Signup
-            </Link>
+           {!user ? <Link aria-current="page" to={"/signup"}>
+             Signup
+            </Link> :
+            <Link aria-current="page" to={"/dashboard"}>
+             Go to Dahsboard
+            </Link>}
           </li>
           <li className="text-gray-700 hover:text-gray-900">
             <Link to={"about"}>About</Link>

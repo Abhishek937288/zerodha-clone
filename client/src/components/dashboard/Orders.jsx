@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "./axiosConfig";
+import axios from "./../../utils/axiosConfig.js"
 
 
 const Orders = () => {
@@ -7,7 +7,7 @@ const Orders = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3002/orders")
+      .get(import.meta.env.VITE_BACKEND_URI +"/api/v1/orders")
       .then((res) => {
         setOrders(res.data);
       })
@@ -17,11 +17,11 @@ const Orders = () => {
   if (orders.length > 0) {
     return (
       <>
-        <h3 className="title">Orders ({orders.length})</h3>
-        <div className="order-table">
-          <table>
+        <h3 className="text-lg py-3 font-bold">Orders ({orders.length})</h3>
+        <div>
+          <table  className="border w-full border-gray-400/70">
             <thead>
-              <tr>
+            <tr>
                 <th>Name</th>
                 <th>Qty.</th>
                 <th>Price cost</th>
@@ -32,8 +32,8 @@ const Orders = () => {
             <tbody>
               {orders.map((stock, index) => {
                 return (
-                  <tr key={index}>
-                    <td>{stock.name}</td>
+                  <tr key={index} className="w-full border-t border-gray-400/70 text-center py-5 ">
+                    <td className="py-2">{stock.name}</td>
                     <td>{stock.qty}</td>
                     <td>{stock.price}</td>
                     <td>{stock.mode}</td>
@@ -48,18 +48,18 @@ const Orders = () => {
     );
   } else {
     return (
-     <div className="empty-holdings-container">
-             <h3 className="title">Holdings (0)</h3>
-             <div className="empty-holdings-content">
-               <img
-                 src={"images\orders.svg"}
-                 alt="Empty Portfolio"
-                 className="empty-holdings-image"
-               />
-               <p className="empty-holdings-message">
+     <div className="w-full text-center py-5">
+             <h3 className="text-xl  pt-10 text-gray-600">Holdings (0)</h3>
+             <div className="w-full">
+             <img
+  src={"/images/orders.svg"}
+  alt="Empty Portfolio"
+  className="w-[50%] mx-auto py-10"
+/>
+               <p className="py-3 text-xl text-gray-600">
                  Please place orders
                </p>
-               <p className="empty-holdings-suggestion">
+               <p className="text-xl text-gray-600">
                  Ready to start building your investments? Explore our wide range of
                  stocks and funds.
                </p>

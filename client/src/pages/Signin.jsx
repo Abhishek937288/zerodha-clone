@@ -5,30 +5,28 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {useAuth} from "../hooks/useAuthStore.jsx"
 
-function Signup() {
-  const [signUpData, setSignUpData] = useState({
-    username: "",
+function Signin() {
+  const [signInData, setSigninData] = useState({
     email: "",
     password: "",
   });
   const [loading, setLoading] = useState(false)
 
-  
+
   const {login} = useAuth();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true)
-      const response = await fetch(import.meta.env.VITE_BACKEND_URI +"/api/v1/auth/signup", {
+      setLoading(true) // zerodha-clone.com <- import.meta.env.VITE_BACKEND_URI +
+      const response = await fetch(import.meta.env.VITE_BACKEND_URI + "/api/v1/auth/signin", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
         },
         credentials: 'include',
-        body: JSON.stringify(signUpData)
+        body: JSON.stringify(signInData)
       });
       const resData = await response.json();
-      
       if(!resData.success){
         return toast.error(resData.message)
       }
@@ -42,13 +40,6 @@ function Signup() {
   };
 
   const signUpFromData = [
-    {
-      label: "Username",
-      type: "text",
-      placeholder: "Enter your username",
-      name: "username",
-      id: 1,
-    },
     {
       label: "Email",
       type: "email",
@@ -67,7 +58,7 @@ function Signup() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setSignUpData((prev) => ({
+    setSigninData((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -80,7 +71,7 @@ function Signup() {
         onSubmit={handleSubmit}
       >
         <h2 className="text-center text-2xl text-blue-500 font-semibold mb-6">
-          Signup Account
+          Hello Again! 👋
         </h2>
         {signUpFromData.map((formItem) => (
           <div key={formItem.id} className="mb-4">
@@ -92,7 +83,7 @@ function Signup() {
             </label>
             <input
               id={formItem.name}
-              value={signUpData[formItem.name]}
+              value={signInData[formItem.name]}
               type={formItem.type}
               name={formItem.name}
               placeholder={formItem.placeholder}
@@ -108,13 +99,13 @@ function Signup() {
           disabled={loading}
         >
           {
-            loading ? "Submiting..." : "Submit"
+            loading ? "Submiting..." : "Sign In"
           }
         </button>
         <div className="mt-4 text-center text-gray-600 text-sm">
-          Already have an account?{" "}
-          <Link to="/signin" className="text-blue-500 hover:underline">
-            Sign in
+        Don't you have account yet?{" "}
+          <Link to="/signup" className="text-blue-500 hover:underline">
+            Signup
           </Link>
         </div>
       </form>
@@ -123,4 +114,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default Signin;

@@ -3,7 +3,7 @@ import React from "react";
 function SupportHero() {
   return (
     <section className="bg-blue-500 py-30">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
         <h4 className="text-white text-lg font-semibold mb-4 sm:mb-0">
           Support Portal
         </h4>
@@ -11,7 +11,7 @@ function SupportHero() {
           Track Tickets
         </a>
       </div>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-start justify-between">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-start justify-between">
         <div className="w-full md:w-1/2 mb-8 md:mb-0">
           <h1 className="text-white text-2xl sm:text-3xl font-semibold mb-4">
             Search for an answer or browse help topics

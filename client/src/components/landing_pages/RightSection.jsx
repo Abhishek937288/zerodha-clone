@@ -7,7 +7,7 @@ function RightSection({
   learnMore,
 }) {
   return (
-    <div className="container mx-25  mb-10 px-4 sm:px-6 lg:px-8">
+    <div className="mx-25  mb-10 px-4 sm:px-6 lg:px-8">
       <div className="flex flex-wrap">
         <div className="w-full md:w-5/12 mt-5 px-5 py-30 md:mt-0">
           <h1 className="text-3xl font-bold text-gray-800 mb-4">{productName}</h1>

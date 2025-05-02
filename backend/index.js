@@ -19,24 +19,22 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:8080",
+    origin: "http://localhost:5173",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
-
-app.use(bodyParser.json());
-app.use(cookieParser());
 app.use(express.json());
+app.use(cookieParser());
 
-app.use("/", authRoute);
-app.use("/holdings", holdingsRoute);
-app.use("/positions", positionsRoute);
-app.use("/orders", ordersRoute);
+app.use("/api/v1/auth", authRoute);
+app.use("/api/v1/holdings", holdingsRoute);
+app.use("/api/v1/positions", positionsRoute);
+app.use("/api/v1/orders", ordersRoute);
 
 
 app.listen(PORT, () => {
-  console.log("App started!");
+  console.log(`server runing on: http://localhost:${PORT}`)
   mongoose.connect(uri);
   console.log("DB started!");
 }); 

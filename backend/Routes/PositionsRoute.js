@@ -5,7 +5,7 @@ const PositionsController = require("../Controllers/PositionsController");
 
 router.get(
   "/",
-  authMiddleware.userVerification,
+  // authMiddleware.userVerification,
   PositionsController.getAllPositions
 );
 
