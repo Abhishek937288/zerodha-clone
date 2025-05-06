@@ -74,6 +74,7 @@ const WatchList = () => {
 export default WatchList;
 
 const WatchListItem = ({ stock }) => {
+  
   const {isBuyOpen,isSellOpen} = useBuySellStore()
   const statusClass = stock.isDown ? "text-red-700 z-[12]" : "text-green-700 z-[12]"
   return (
@@ -94,8 +95,8 @@ const WatchListItem = ({ stock }) => {
         <WatchListActions uid={stock.name} />
        </div>
        <div className="absolute">
-       {isBuyOpen && <BuyActionWindow  uid={stock.name}  />}
-       {isSellOpen && <SellActionWindow  uid={stock.name}  />}
+       {isBuyOpen && <BuyActionWindow    />}
+       {isSellOpen && <SellActionWindow    />}
        </div>
     </li>
   );
@@ -105,11 +106,11 @@ const WatchListActions = ({ uid }) => {
   const {openBuy, openSell} = useBuySellStore()
 
   const handleBuyClick = () => {
-    openBuy()
+    openBuy(uid)
   };
   
   const handleSellClick = () => {
-   openSell()
+   openSell(uid)
   };
 
   return (

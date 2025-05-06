@@ -13,7 +13,7 @@ const Holdings = () => {
         withCredentials: true,
       })
       .then((res) => {
-        setAllHoldings(res.data);
+        setAllHoldings(res.data.data);
         if (res.data && res.data.length > 0) {
           const labels = res.data.map((stock) => stock.name);
           const prices = res.data.map((stock) => stock.price);
@@ -35,7 +35,7 @@ const Holdings = () => {
       .catch((err) => console.error("API Error:", err));
   }, []);
   
-  console.log(allholdings);
+  
 
   const totalInvestment = allholdings.reduce(
     (sum, stock) => sum + stock.avg * stock.qty,

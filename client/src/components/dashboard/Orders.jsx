@@ -6,12 +6,13 @@ const Orders = () => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(import.meta.env.VITE_BACKEND_URI +"/api/v1/orders")
-      .then((res) => {
-        setOrders(res.data);
-      })
-      .catch((err) => console.error("API Error:", err));
+    
+    const loadOrders = async () => {
+      const res = await fetch(import.meta.env.VITE_BACKEND_URI +"/api/v1/orders",{credentials: 'include',});
+      const data = await res.json();
+      setOrders(data.data);
+    }
+    loadOrders()
   }, []);
 
   if (orders.length > 0) {

@@ -6,7 +6,7 @@ const Positions = () => {
   useEffect(() => {
     axios.get(import.meta.env.VITE_BACKEND_URI +"/api/v1/positions",{ 
     }).then((res) => {
-       setAllPositions(res.data);
+       setAllPositions(res.data.data);
     }).catch((err) => console.error("API Error:", err));
   }, []);
   const tableTitles = [

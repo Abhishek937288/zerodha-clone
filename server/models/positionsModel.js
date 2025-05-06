@@ -1,0 +1,19 @@
+import mongoose from "mongoose";
+
+const positionSchema = new mongoose.Schema({
+    product: String,
+    name: String,
+    qty: Number,
+    avg: Number,
+    price: Number,
+    net: String,
+    isLoss: Boolean,
+    day: String,
+  },
+  {
+    timestamps: true,
+  },);
+
+const Position   = mongoose.model("positon",positionSchema);
+
+export default Position ;

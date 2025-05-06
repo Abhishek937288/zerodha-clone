@@ -2,15 +2,18 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import {useBuySellStore} from "../../hooks/useBuySell"
 
-const BuyActionWindow = ({ uid }) => {
+const BuyActionWindow = () => {
   const [buyData, setBuyData] = useState({stockPrice: 0.0 , stockQuantity: 0});
-  const {closeBuy} = useBuySellStore();
+  const {closeBuy,buyUid} = useBuySellStore();
+
   const [isloading,setIsLoading]=useState(false);
+  
+  
 
   const handleCancelClick = () => {
     closeBuy();
   };
-
+ 
   const handleChange = (e) => {
     const {name,value} = e.target;
     setBuyData((prev)=> {
@@ -19,12 +22,13 @@ const BuyActionWindow = ({ uid }) => {
   }
 
     const handleSubmit = async (e) => {
-      e.preventDefault();
+      
+      e.preventDefault();    
       try {
         setIsLoading(true);
       
         const res = await fetch(
-          import.meta.env.VITE_BACKEND_URI +"/api/v1/orders",
+          import.meta.env.VITE_BACKEND_URI +"/api/v1/orders/buy",
           {
             method: "POST",
             headers: {
@@ -32,7 +36,7 @@ const BuyActionWindow = ({ uid }) => {
             },
             credentials: 'include',
             body: JSON.stringify({
-              name: uid,
+              name: buyUid,
               qty: buyData.stockQuantity,
               price: buyData.stockPrice,
               mode: "buy",

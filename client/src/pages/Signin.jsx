@@ -17,7 +17,7 @@ function Signin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true) // zerodha-clone.com <- import.meta.env.VITE_BACKEND_URI +
+      setLoading(true) 
       const response = await fetch(import.meta.env.VITE_BACKEND_URI + "/api/v1/auth/signin", {
         method: "POST",
         headers: {
