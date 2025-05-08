@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import {useBuySellStore} from "../../hooks/useBuySell"
 
-const BuyActionWindow = () => {
+const SellActionWindow = () => {
   const [sellData, setSellData] = useState({stockPrice: 0.0 , stockQuantity: 0});
   const {closeSell,sellUid} = useBuySellStore();
   const [isloading,setIsLoading]=useState(false);
@@ -45,7 +45,7 @@ const BuyActionWindow = () => {
         closeSell();
       }catch (err) {
         toast.error("Order failed");
-        console.error(err);
+        console.log(err);
       } finally{setIsLoading(false)}
     }
   return (
@@ -94,4 +94,4 @@ const BuyActionWindow = () => {
 };
 
 
-export default BuyActionWindow;
+export default SellActionWindow;

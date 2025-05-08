@@ -35,7 +35,7 @@ export const buy = async (req,res)=>{
     userId:req.userId
  }).save();
 
- let holding = await Holding.findById( req.userId);
+ let holding =  await Holding.findOne({ name, userId: req.userId });
  if(!holding){
    await new Holding({
         name,
@@ -69,7 +69,7 @@ export const sell = async (req,res)=>{
     const {error ,value}= orderValidation.validate(body);
     if(error){
         return res.status(400).json({
-            message:"error.detail[0].message",
+            message:error.details[0].message,
             data : null,
             success :false
         })};
@@ -83,7 +83,7 @@ export const sell = async (req,res)=>{
            userId:req.userId
         }).save();
         
-        let holding = await Holding.findById(req.userId);
+        let holding =  await Holding.findOne({ name, userId: req.userId });
         if(!holding){
             return res.status(400).json({
                 message:"we dont have this stock to sell",

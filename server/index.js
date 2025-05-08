@@ -30,7 +30,7 @@ app.use(limit);
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: env(CLIENT_URL),
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
