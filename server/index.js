@@ -9,7 +9,11 @@ import { env } from "./utils/env.js";
 import cookieParser from "cookie-parser";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
-import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
+
+
+// import cors from "cors";
 
 
 configDotenv();
@@ -25,15 +29,29 @@ const limit = rateLimit({
   max: 100,
   message: "Too many requests from this IP, please try again after 15 minutes.",
 });
+
+
 app.use(helmet());
 app.use(limit);
 
-app.use(
-  cors({
-    origin: env("CLIENT_URL"),
-    credentials: true
-  })
-);
+// app.use(
+//   cors({
+//     origin: env("CLIENT_URL"),
+//     credentials: true
+//   })
+// );
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const oneStepBack = path.join(__dirname, ".."); 
+
+
+    app.use(express.static(path.join(oneStepBack,"client", 'dist')));
+    console.log(path.join(oneStepBack,"client", 'dist'));
+    app.get('/', function (req, res) {
+    res.sendFile(path.join(oneStepBack,"client", 'dist' ,'index.html'));
+    });
+
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/orders", orderRoutes);

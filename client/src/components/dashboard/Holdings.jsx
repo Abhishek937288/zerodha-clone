@@ -9,8 +9,7 @@ const Holdings = () => {
 
   useEffect(() => {
     axios
-      .get(import.meta.env.VITE_BACKEND_URI +"/api/v1/holdings", {
-        withCredentials: true,
+      .get("/api/v1/holdings", {
       })
       .then((res) => {
         setAllHoldings(res.data.data);

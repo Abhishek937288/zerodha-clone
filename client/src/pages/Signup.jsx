@@ -19,12 +19,11 @@ function Signup() {
     e.preventDefault();
     try {
       setLoading(true)
-      const response = await fetch(import.meta.env.VITE_BACKEND_URI +"/api/v1/auth/signup", {
+      const response = await fetch("/api/v1/auth/signup", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
         },
-        credentials: 'include',
         body: JSON.stringify(signUpData)
       });
       const resData = await response.json();

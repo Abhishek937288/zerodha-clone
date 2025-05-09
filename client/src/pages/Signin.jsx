@@ -18,12 +18,12 @@ function Signin() {
     e.preventDefault();
     try {
       setLoading(true) 
-      const response = await fetch(import.meta.env.VITE_BACKEND_URI + "/api/v1/auth/signin", {
+      const response = await fetch("/api/v1/auth/signin", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
         },
-        credentials: 'include',
+        
         body: JSON.stringify(signInData)
       });
       const resData = await response.json();

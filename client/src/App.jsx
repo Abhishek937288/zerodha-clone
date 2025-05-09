@@ -26,7 +26,7 @@ const App = () => {
   const checkUser = async () => {
     try {
       setLoading(true);
-      const res = await fetch(import.meta.env.VITE_BACKEND_URI +"/api/v1/auth/profile",{  credentials: 'include'});
+      const res = await fetch("/api/v1/auth/profile");
       const data = await res.json();
       login(data.data);
     } catch (error) {

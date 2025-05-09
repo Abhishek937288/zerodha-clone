@@ -8,7 +8,7 @@ const Orders = () => {
   useEffect(() => {
     
     const loadOrders = async () => {
-      const res = await fetch(import.meta.env.VITE_BACKEND_URI +"/api/v1/orders",{credentials: 'include',});
+      const res = await fetch("/api/v1/orders");
       const data = await res.json();
       setOrders(data.data || []);
     }

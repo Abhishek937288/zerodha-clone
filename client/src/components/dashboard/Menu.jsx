@@ -39,7 +39,7 @@ const Menu = () => {
 
   const handlelogout= async()=>{
     try{
-      const res = await fetch(import.meta.env.VITE_BACKEND_URI +"/api/v1/auth/logout");
+      const res = await fetch("/api/v1/auth/logout");
       if(res.ok) { 
         logout()
       }

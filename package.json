@@ -5,8 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "node --watch index.js",
-    "start": "node index.js"
+    "dev": "node --watch ./server/index.js",
+    "start": "node ./server/index.js",
+    "build": "npm install && cd  client && npm install && npm run build"
+
   },
   "keywords": [
     "app",

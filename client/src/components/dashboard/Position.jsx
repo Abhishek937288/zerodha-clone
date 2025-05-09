@@ -4,7 +4,7 @@ const Positions = () => {
   const [allpositions, setAllPositions] = useState([]);
 
   useEffect(() => {
-    axios.get(import.meta.env.VITE_BACKEND_URI +"/api/v1/positions",{ 
+    axios.get("/api/v1/positions",{ 
     }).then((res) => {
        setAllPositions(res.data.data);
     }).catch((err) => console.error("API Error:", err));

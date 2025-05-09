@@ -28,13 +28,12 @@ const BuyActionWindow = () => {
         setIsLoading(true);
       
         const res = await fetch(
-          import.meta.env.VITE_BACKEND_URI +"/api/v1/orders/buy",
+         "/api/v1/orders/buy",
           {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
-            credentials: 'include',
             body: JSON.stringify({
               name: buyUid,
               qty: buyData.stockQuantity,
