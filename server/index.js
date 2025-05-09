@@ -15,7 +15,7 @@ import cors from "cors";
 configDotenv();
 
 const app = express();
-app.set("trust proxy", 1);
+
 
 const port = env("PORT", 3000);
 app.use(express.json());
@@ -31,8 +31,7 @@ app.use(limit);
 app.use(
   cors({
     origin: env("CLIENT_URL"),
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
+    credentials: true
   })
 );
 
