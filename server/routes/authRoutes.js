@@ -4,7 +4,7 @@ const router = Router();
 import protectRoute from "../middleware/protectRoute.js";
 
 router.post("/signup",signup);
-router.post("/login",login);
+router.post("/signin",login);
 router.get("/profile",protectRoute,profile);
 
 export default router;
