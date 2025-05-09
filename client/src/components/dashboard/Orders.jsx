@@ -10,7 +10,7 @@ const Orders = () => {
     const loadOrders = async () => {
       const res = await fetch(import.meta.env.VITE_BACKEND_URI +"/api/v1/orders",{credentials: 'include',});
       const data = await res.json();
-      setOrders(data.data);
+      setOrders(data.data || []);
     }
     loadOrders()
   }, []);
